@@ -1,25 +1,29 @@
 import argparse
 import collections
 import subprocess
+import sys
 import time
 
-from .get_question import get_question, DEFAULT_LANGUAGE
-from .solved_questions import solved_questions
+from get_question import get_question, DEFAULT_LANGUAGE
+from solved_questions import solved_questions
 
-PAUSE_SECONDS_DEFAULT = 2
+PAUSE_SECONDS_DEFAULT = 1.5
 
 def get_all_questions(language, folder, pause):
     all_questions = solved_questions()
-    out_dir = collections.OrderedDict()
+    question_count = 1
+    all_questions_count = len(all_questions)
     for question_number in all_questions:
         try:
-            sub[i] = get_question(question_number, language, folder)
+            print(f'Question {question_number} ({question_count}/{all_questions_count})')
+            out = get_question(question_number, language, folder)
+            print(out)
             time.sleep(pause)
+            question_count += 1
         except Exception as e:
-            print("Error: {e}", file=sys.stderr)
-    return out_dir
+            print(f'Error: {e}', file=sys.stderr)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Download all approved questions and answers.')
     parser.add_argument(
         '--language',
@@ -41,11 +45,4 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    out_dir = get_all_questions(args.language, args.folder, args.pause)
-
-    for out in out_dir.values():
-        stdout,stderr = out.communicate()
-        if stderr:
-            print(stderr, file=sys.stderr)
-        else:
-            print(stdout)
+    get_all_questions(args.language, args.folder, args.pause)
