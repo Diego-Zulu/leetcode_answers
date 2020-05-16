@@ -12,14 +12,14 @@ I also had to write my own script to get past the new throttling restrictions on
 
 2. `python get_all_questions.py -l python`
 
-Note: To download 300 questions it will take around 10 minutes due to pause to avoid throttling.
+Note: To download 300 questions it will take around 15 minutes due to pause to avoid throttling.
 
 ## Stats
 
 As of May 14th 2020:
 
 ```
-$ leetcode stat -t algorithms
+$ leetcode stat -t -l algorithms
 
  Easy	119/353 ( 33.71 %)  ███████████░░░░░░░░░░░░░░░░░░░
  Medium	151/684 ( 22.08 %)  ███████░░░░░░░░░░░░░░░░░░░░░░░
